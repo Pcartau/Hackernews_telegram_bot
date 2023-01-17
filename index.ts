@@ -23,9 +23,9 @@ const bot = new TelegramBot(token!, {polling: true});
 
 
 function filterByCache(articles:article[]) {
-  const cache = fs.readFileSync('./cache.txt', 'utf-8');
+  const cache = fs.readFileSync('./cache.txt', 'utf-8').split('\n');
   const filteredArticles = articles.filter((article) => !cache.includes(article.title!));
-  fs.writeFileSync('./cache.txt', articles.map((article) => article.title).join('\n'));
+  fs.appendFileSync('./cache.txt', '\n' + filteredArticles.join('\n'));
 
   return filteredArticles;
 }
